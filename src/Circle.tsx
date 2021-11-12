@@ -8,7 +8,7 @@ const Circle = () => {
   const [x, setX] = React.useState(30)
   const [y, setY] = React.useState(80)
 
-  const yo = () => {
+  const move = () => {
     setX((prevX) => {
       if (prevX > config.width - 5) return prevX
       return prevX + speed
@@ -19,13 +19,13 @@ const Circle = () => {
     })
   }
 
-  useGameLoopCallback(yo)
+  useGameLoopCallback(move)
 
   React.useEffect(() => {
     console.log({ x, y })
   }, [x, y])
 
-  return <circle cx={x} cy={y} radius="5" />
+  return <circle cx={x} cy={y} r="5" fill="green" />
 }
 
 export default Circle
