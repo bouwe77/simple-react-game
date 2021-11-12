@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { GameLoopProvider as GameLoop } from './GameLoopContext'
+import { GameLoopProvider as GameLoop } from './lib/GameLoopContext'
 import Game from './Game'
 import Thingy from './Thingy'
 import config from './config'

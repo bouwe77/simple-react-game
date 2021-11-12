@@ -1,6 +1,6 @@
 import * as React from 'react'
 import config from './config'
-import useGameLoopCallback from './useGameLoopCallback'
+import useGameLoopCallback from './lib/useGameLoopCallback'
 
 const speed = 1
 

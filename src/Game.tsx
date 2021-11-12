@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useGameLoop } from './GameLoopContext'
+import { useGameLoop } from './lib/GameLoopContext'
 
 type Props = { children: React.ReactNode }
 
