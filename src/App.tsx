@@ -1,33 +1,21 @@
 import * as React from 'react'
-import { GameLoopProvider as GameLoop, useGameLoop } from './GameLoopContext'
+import { GameLoopProvider as GameLoop } from './GameLoopContext'
+import Game from './Game'
+import Thingy from './Thingy'
+import config from './config'
 
 export default function App() {
   return (
     <GameLoop>
-      <Game />
+      <Game>
+        <svg
+          width={config.width}
+          height={config.height}
+          style={{ border: '1px solid red' }}
+        >
+          <Thingy />
+        </svg>
+      </Game>
     </GameLoop>
-  )
-}
-
-const Game = () => {
-  const [helloWorldId, setHelloWorldId] = React.useState(null)
-  const { subscribe, unsubscribe } = useGameLoop()
-
-  React.useEffect(() => {
-    const helloWorldId = subscribe(() => {
-      console.log('hello world')
-    })
-
-    setHelloWorldId(helloWorldId)
-
-    return () => {
-      unsubscribe(helloWorldId)
-    }
-  }, [subscribe, unsubscribe])
-
-  return (
-    <>
-      The game... <button onClick={() => unsubscribe(helloWorldId)}>weg</button>
-    </>
   )
 }

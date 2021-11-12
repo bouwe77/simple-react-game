@@ -1,9 +1,27 @@
 import * as React from 'react'
+import useAnimationFrame from './useAnimationFrame'
 
-const GameLoopContext = React.createContext()
+type GameLoopContextProps = { children: React.ReactNode }
 
-function GameLoopProvider({ children }) {
-  const callbacksRef = React.useRef([])
+type GameLoopContextValue = {
+  subscribe: (callback: unknown) => number
+  unsubscribe: (id: number) => void
+}
+
+const GameLoopContext = React.createContext<GameLoopContextValue | undefined>(
+  undefined,
+)
+
+function GameLoopProvider({ children }: GameLoopContextProps) {
+  const callbacksRef = React.useRef<(() => void)[]>([])
+
+  const callAllCallbacks = (deltaTime: number) => {
+    callbacksRef.current.forEach((callback) => {
+      callback()
+    })
+  }
+
+  useAnimationFrame(callAllCallbacks)
 
   const subscribe = React.useCallback((callback) => {
     const id = callbacksRef.current.push(callback)
