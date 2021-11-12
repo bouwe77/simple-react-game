@@ -4,7 +4,7 @@ import useAnimationFrame from './useAnimationFrame'
 type GameLoopContextProps = { children: React.ReactNode }
 
 type GameLoopContextValue = {
-  subscribe: (callback: unknown) => number
+  subscribe: (callback: () => void) => number
   unsubscribe: (id: number) => void
 }
 

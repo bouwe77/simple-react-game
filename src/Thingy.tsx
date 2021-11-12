@@ -1,28 +1,29 @@
-import { useEffect, useRef, useState } from 'react'
-import { useGameLoop } from './GameLoopContext'
+import * as React from 'react'
 import config from './config'
+import useGameLoopCallback from './useGameLoopCallback'
 
-const speed = 3
+const speed = 1
 
 const Thingy = () => {
-  const [x, setX] = useState(0)
-  const [y, setY] = useState(0)
-  const subscriptionRef = useRef<number | null>(null)
+  const [x, setX] = React.useState(0)
+  const [y, setY] = React.useState(0)
 
-  const { subscribe, unsubscribe } = useGameLoop()
-
-  useEffect(() => {
-    const subscriptionId = subscribe(() => {
-      setX((x) => x + speed)
-      setY((y) => y + speed)
+  const yo = () => {
+    setX((prevX) => {
+      if (prevX > config.width - 10) return prevX
+      return prevX + speed
     })
-    subscriptionRef.current = subscriptionId
+    setY((prevY) => {
+      if (prevY > config.height - 10) return prevY
+      return prevY + speed
+    })
+  }
 
-    return () => {
-      if (!subscriptionRef?.current) return
-      unsubscribe(subscriptionRef.current)
-    }
-  }, [subscribe, unsubscribe])
+  useGameLoopCallback(yo)
+
+  React.useEffect(() => {
+    console.log({ x, y })
+  }, [x, y])
 
   return <rect x={x} y={y} width="10" height="10" />
 }
