@@ -1,6 +1,7 @@
 import { GameLoopProvider as GameLoop } from './lib/GameLoopContext'
 import Game from './Game'
-import Thingy from './Thingy'
+import Rectangle from './Rectangle'
+import Circle from './Circle'
 import config from './config'
 
 export default function App() {
@@ -12,7 +13,8 @@ export default function App() {
           height={config.height}
           style={{ border: '1px solid red' }}
         >
-          <Thingy />
+          <Rectangle />
+          <Circle />
         </svg>
       </Game>
     </GameLoop>
