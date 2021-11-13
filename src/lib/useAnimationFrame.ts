@@ -1,16 +1,20 @@
 import * as React from 'react'
 
+const milliSeconds = 1000
+
 const useAnimationFrame = (callback: (deltaTime: number) => void) => {
   const requestRef = React.useRef<number>()
   const previousTimeRef = React.useRef<number>()
 
   const animate = React.useCallback(
-    (time: number) => {
-      if (previousTimeRef.current !== undefined) {
-        const deltaTime = time - previousTimeRef.current
-        callback(deltaTime)
+    (now: number) => {
+      if (
+        !previousTimeRef.current ||
+        now - previousTimeRef.current >= milliSeconds
+      ) {
+        previousTimeRef.current = now
+        callback(previousTimeRef.current)
       }
-      previousTimeRef.current = time
       requestRef.current = requestAnimationFrame(animate)
     },
     [callback],
