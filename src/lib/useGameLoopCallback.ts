@@ -7,7 +7,7 @@ const useGameLoopCallback = (callback: () => void) => {
 
   React.useEffect(() => {
     const subscriptionId = subscribe(callback)
-    console.log({ kut: subscriptionId })
+    console.log({ useGameLoopCallback: subscriptionId })
     subscriptionRef.current = subscriptionId
 
     return () => {
